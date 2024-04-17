@@ -13,7 +13,9 @@ module.exports = {
       colors: {
         'indigo-600': 'rgb(102,99,253)',
         paws:{
-          gold:"#e5f973"
+          gold:"#e5f973",
+          darkblue:"#0b3339",
+          pink:"#e4b1f6"
         }
       }
     },

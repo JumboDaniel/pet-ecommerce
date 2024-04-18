@@ -3,7 +3,7 @@
 import navigation from '../utils/getNavigation'
 export default function Footer() {
 return (
-    <footer className="mt-20 text-center text-gray-600 bg-gray-100 lg:text-left">
+    <footer className="mt-20 text-center text-white bg-[#01313d] lg:text-left">
   <div className="flex items-center justify-center p-6 border-b border-gray-300 lg:justify-between">
     
     <div className="flex justify-center">

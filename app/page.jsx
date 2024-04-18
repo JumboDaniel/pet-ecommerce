@@ -14,8 +14,7 @@ export const metadata = {
 export default async function Page({ params }) {
   const { link, stripes, landingPageTitle } = await getPageBySlug("/");
   const products = await getSomeProducts(4);
-  // console.log(link, stripes, landingPageTitle);
-
+  // console.log("products: ", products);
   return (
     <div className="h-full">
       <header className="bg-[url(/images/dog.jpg)] bg-cover bg-center md:h-[90vh] ">
@@ -86,6 +85,28 @@ export default async function Page({ params }) {
           </div>
         </div>
       </div>
+      <div>
+        <ProductSection stripes={stripes} />
+      </div>
     </div>
   );
 }
+const ProductSection = ({ stripes }) => {
+  return (
+    <div>
+      {stripes &&
+        stripes.map((stripe) => {
+          if (stripe.__typename === "ProductGrid") {
+            // console.log(stripe.products)
+            return (
+              <ProductGrid
+                key={stripe.id}
+                title={stripe.headline}
+                products={stripe.products}
+              />
+            );
+          }
+        })}
+    </div>
+  );
+};

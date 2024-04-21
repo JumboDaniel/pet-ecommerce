@@ -8,16 +8,19 @@ const Product = function ({ product }) {
 
   return (
     <div className="group relative">
-      <div className="relative h-64 aspect-w-8 aspect-h-5 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 ">
-        {thumbnail && (
-          <Image
-            src={thumbnail.url}
-            fill={true}
-            alt=""
-            className="h-full w-full object-cover bg-center lg:h-full lg:w-full"
-          />
-        )}
-      </div>
+      <a href={"/products/" + product.productSlug}>
+        <div className="relative h-64 aspect-w-8 aspect-h-5 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 ">
+          {thumbnail && (
+            <Image
+              src={thumbnail.url}
+              fill={true}
+              alt=""
+              className="h-full w-full object-cover bg-center lg:h-full lg:w-full"
+            />
+          )}
+        </div>
+      </a>
+
       <div>
         <div className="flex gap-x-3 mt-3">
           {Array.from({ length: 3 }).map((_, index) => {
@@ -52,7 +55,7 @@ const Product = function ({ product }) {
             title="add to cart"
             className="bg-paws-gold w-8 h-8 rounded-full"
           >
-            <Plus color="#0b3339" className="mx-auto" size={16}/>
+            <Plus color="#0b3339" className="mx-auto" size={16} />
           </button>
         </div>
       </div>

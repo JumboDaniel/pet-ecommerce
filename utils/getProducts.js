@@ -13,6 +13,7 @@ export async function getSomeProducts(count = 4) {
   const query = gql`
   query GetSomeProducts($count: Int!) {
     products(first: $count) {
+      id
     productName
     productSlug
     productImage {
@@ -21,6 +22,7 @@ export async function getSomeProducts(count = 4) {
       width
       altText
     }
+    productPrice
     reviews {
       data {
         id

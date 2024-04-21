@@ -17,7 +17,7 @@ export default async function Page({ params }) {
   // console.log("products: ", products);
   return (
     <div className="h-full">
-      <header className="bg-[url(/images/dog.jpg)] bg-cover bg-center md:h-[90vh] ">
+      <header className="bg-[url(/images/dog.jpg)] bg-cover bg-center md:h-[90vh] -white">
         <Navbar />
         {stripes &&
           stripes.map((stripe) => {

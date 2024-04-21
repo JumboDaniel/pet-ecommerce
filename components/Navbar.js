@@ -26,14 +26,14 @@ export default async function Navbar() {
           <a
             key={link.id}
             href={link.url ? link.url : "/en/" + link.page.url}
-            className="text-base font-medium text-white"
+            className="text-base font-medium"
           >
             {link.displayText}
           </a>
         ))}
         <a
           href="/cart"
-          className="text-base text-white font-medium"
+          className="text-base  font-medium"
         >
          <ShoppingCart/>
         </a>

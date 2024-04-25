@@ -6,6 +6,9 @@ module.exports = {
   },
   experimental: {
     workerThreads: false,
-    cpus: 1
+    cpus: 1,
+    experimental: {
+      serverActions: true,
+    },
   },
 }

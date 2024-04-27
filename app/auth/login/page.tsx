@@ -1,6 +1,12 @@
-import Link from "next/link";
+"use client";
 
-import { login, signup } from '../actions'
+import Link from "next/link";
+// import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+
+////file import
+import { login } from "../actions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,11 +17,46 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export default function LoginForm() {
+  const { toast } = useToast();
+
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    // console.log(e.target.name, e.target.value);
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+  }
+  async function handleSubmit(formdata: FormData) {
+    const response = await login(formdata);
+    console.log(response);
+    if (response.error) {
+      toast({
+        title: "Error",
+        description: response.errorMessage,
+        variant: "destructive",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }else{
+      toast({
+        title: "Success",
+        description: "Login successfull, redirecting",
+      });
+        // revalidatePath('/', 'layout')
+        redirect('/')
+    }
+  }
+
   return (
     <div>
-      <Card className="mx-auto max-w-sm">
+      <Card className="mx-auto max-w-lg">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -31,27 +72,31 @@ export default function LoginForm() {
                 type="email"
                 placeholder="m@example.com"
                 required
+                value={userData.email} // Set value prop with state data
+                name="email"
+                onChange={handleInputChange}
               />
             </div>
             <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  href="#"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                name="password"
+                required
+                value={userData.password}
+                onChange={handleInputChange}
+              />
             </div>
-            <Button type="submit" className="w-full" formAction={login}>
+            <Button type="submit" className="w-full bg-paws-darkblue" formAction={handleSubmit}>
               Login
             </Button>
-            <Button variant="outline" className="w-full">
-              Login with Google
-            </Button>
           </form>
+          <div className="flex items-end my-2">
+            <Link href="#" className="ml-auto inline-block text-sm underline">
+              Forgot your password?
+            </Link>
+          </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link href="#" className="underline">

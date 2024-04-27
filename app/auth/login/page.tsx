@@ -23,6 +23,7 @@ import { ToastAction } from "@/components/ui/toast";
 export default function LoginForm() {
   const { toast } = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -35,8 +36,8 @@ export default function LoginForm() {
     });
   }
   async function handleSubmit(formdata: FormData) {
+    setIsLoading((prev) => !prev);
     const response = await login(formdata);
-    console.log(response);
     if (response.error) {
       toast({
         title: "Error",
@@ -44,13 +45,15 @@ export default function LoginForm() {
         variant: "destructive",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
-    }else{
+      setIsLoading((prev) => !prev);
+    } else {
       toast({
         title: "Success",
         description: "Login successfull, redirecting",
       });
-        // revalidatePath('/', 'layout')
-        redirect('/')
+      setIsLoading((prev) => !prev);
+      // revalidatePath('/', 'layout')
+      redirect("/");
     }
   }
 
@@ -88,7 +91,13 @@ export default function LoginForm() {
                 onChange={handleInputChange}
               />
             </div>
-            <Button type="submit" className="w-full bg-paws-darkblue" formAction={handleSubmit}>
+            <Button
+              type="submit"
+              className="w-full bg-paws-darkblue"
+              formAction={handleSubmit}
+              isLoading={isLoading}
+              disabled={isLoading}
+            >
               Login
             </Button>
           </form>
@@ -99,7 +108,7 @@ export default function LoginForm() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
+            <Link href="/auth/signup" className="underline">
               Sign up
             </Link>
           </div>

@@ -23,6 +23,7 @@ import { ToastAction } from "@/components/ui/toast";
 export default function Signup() {
   const { toast } = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -37,8 +38,8 @@ export default function Signup() {
     });
   }
   async function handleSubmit(formdata: FormData) {
+    setIsLoading((prev) => !prev);
     const response = await signup(formdata);
-    console.log(response);
     if (response.error) {
       toast({
         title: "Error",
@@ -46,11 +47,14 @@ export default function Signup() {
         variant: "destructive",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
+      setIsLoading((prev) => !prev);
     } else {
       toast({
         title: "Success",
         description: "Login successfull, redirecting",
       });
+      setIsLoading((prev) => !prev);
+
       // revalidatePath('/', 'layout')
       redirect("/");
     }
@@ -117,6 +121,8 @@ export default function Signup() {
               type="submit"
               className="w-full bg-paws-darkblue"
               formAction={handleSubmit}
+              isLoading={isLoading}
+              disabled={isLoading}
             >
               Create an account
             </Button>

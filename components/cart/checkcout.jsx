@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { usePaystackPayment } from 'react-paystack';
+
 ///file import
 import {
   Dialog,
@@ -16,7 +18,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-export function Chcekout() {
+const PAYSTACK_PUBLIC_KEY =process.env.NEXT_PAYSTACK_PUBLIC_KEY
+export function Chcekout({amount,email}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -67,6 +70,12 @@ export default function CheckoutForm() {
     // onSubmit(customerInfo); // Pass customer info to parent function
     // You can add additional logic here like form validation or reset
   };
+  const config = {
+    reference: (new Date()).getTime().toString(),
+    email: "user@example.com",
+    amount: 20000, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey:PAYSTACK_PUBLIC_KEY,
+};
   return (
     <div className="flex items-center justify-center h-screen">
       <div>

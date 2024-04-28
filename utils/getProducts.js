@@ -49,6 +49,21 @@ export async function allProducts() {
         productName
         id
         productSlug
+        productImage {
+          url
+          height
+          width
+          altText
+        }
+        productPrice
+        reviews {
+          data {
+            id
+            name
+            rating
+            comment
+          }
+        }
       }
     }
   `;
@@ -66,6 +81,7 @@ export async function getProductBySlug(slug, preview = false) {
   const query = gql`
     query GetSingleProduct($slug: String!, $stage: Stage!) {
       product(where: { productSlug: $slug }, stage: $stage) {
+        id
         productName
         productSlug
         productPrice

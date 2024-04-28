@@ -1,18 +1,22 @@
-
-import Link from "next/link"
-import { Label } from "@/components/ui/label"
-import { Select } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { ArrowRight } from "lucide-react"
+import Link from "next/link";
+import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ArrowRight } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 
-export default function CartPage() {
+export default async function CartPage() {
   const supabase = createClient();
-//   const { data, error } = await supabase.auth.getUser()
-//   if (error || !data?.user) {
-//     redirect('/login')
-//   }
+  const { data: userdata, error } = await supabase.auth.getUser();
+  //   if (error || !data?.user) {
+  //     redirect('/login')
+  //   }
+  const { data: cart, error: carterror } = await supabase
+    .from("cart")
+    .select("*")
+    .eq("uid", userdata.user?.id);
+  console.log(cart, carterror);
   return (
     <div className="flex flex-col">
       <main className="flex-1 py-6 lg:py-12">
@@ -31,7 +35,9 @@ export default function CartPage() {
                 width="160"
               />
               <div className="grid gap-1">
-                <h2 className="font-semibold text-lg md:text-base">Dog Food - Bacon Flavor</h2>
+                <h2 className="font-semibold text-lg md:text-base">
+                  Dog Food - Bacon Flavor
+                </h2>
                 <p className="text-sm text-gray-500">SKU: 9384957</p>
               </div>
               <div className="flex flex-col gap-1">
@@ -79,15 +85,21 @@ export default function CartPage() {
                 </Button>
               </form>
               <div className="flex items-center justify-center">
-                <Link href={`/products`} className="underline underline-offset-4 text-center"> or Continue Shopping</Link>
-                <ArrowRight size={16}/>
+                <Link
+                  href={`/products`}
+                  className="underline underline-offset-4 text-center"
+                >
+                  {" "}
+                  or Continue Shopping
+                </Link>
+                <ArrowRight size={16} />
               </div>
             </div>
           </div>
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 function Package2Icon(props) {
@@ -108,9 +120,8 @@ function Package2Icon(props) {
       <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
       <path d="M12 3v6" />
     </svg>
-  )
+  );
 }
-
 
 function TrashIcon(props) {
   return (
@@ -130,6 +141,5 @@ function TrashIcon(props) {
       <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
       <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
     </svg>
-  )
+  );
 }
-

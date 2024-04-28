@@ -1,8 +1,15 @@
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import { getNavigationById } from "../utils/getNavigation";
 import Main from "./Main";
 import MobileNav from "./MobileNav";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 export default async function Navbar() {
   const nav = await getNavigationById("main");
 
@@ -31,12 +38,22 @@ export default async function Navbar() {
             {link.displayText}
           </a>
         ))}
-        <a
-          href="/cart"
-          className="text-base  font-medium"
-        >
-         <ShoppingCart/>
+        <a href="/cart" className="text-base  font-medium">
+          <ShoppingCart />
         </a>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <User />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className="md:hidden">
         <MobileNav nav={nav} />

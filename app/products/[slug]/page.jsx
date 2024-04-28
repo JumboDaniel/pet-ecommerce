@@ -1,12 +1,14 @@
 // Product detail pages generated from utils/getProducts.js
 // Path: /pages/products/[slug].js
 import React from "react";
+import Image from "next/image";
+import { draftMode } from "next/headers";
+////
 import { getProductBySlug } from "@/utils/getProducts";
 import Review from "@/components/Review";
 import Stars from "@/components/Stars";
 import ImageGroup from "@/components/ImageGroup";
 import Main from "../../../components/Main";
-import { draftMode } from "next/headers";
 import Alert from "../../../components/PreviewAlert";
 import { CurrencyFormatter } from "@/utils/currencyFormatter";
 import {
@@ -15,9 +17,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Image from "next/image";
-
+import { createClient } from "@/utils/supabase/server";
+import { AddtoCart } from "@/components/addtocart";
 export default async function Page({ params }) {
+  // const { toast } = useToast();
+
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
   const preview = draftMode().isEnabled;
   const product = await getProductBySlug(params.slug, preview);
   const reviews = product?.reviews?.data;
@@ -34,32 +40,36 @@ export default async function Page({ params }) {
     "10% restocking fee for returns",
     "60 day return window",
   ];
-  console.log(product?.productImage);
 
   return (
     <div className="mt-10 px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-44 xl:mt-28 h-full">
       <Main>
-        <div className="grid md:grid-cols-[minmax(200px,1fr)_1fr] my-10 gap-3">
-          <div className="h-[20px] p-4 bg-gray-50">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(200px,1fr)_1fr] my-10 gap-3">
+          <div className="[20px] p-4 bg-gray-50">
             {/* {product?.productImage && (
               <ImageGroup images={product?.productImage} />
             )} */}
             <div className="flex flex-wrap gap-x gap-y-2">
-            {product?.productImage &&
-              product.productImage.map((image, index) => {
-                return (
-                  <Image
-                    alt={image?.altText}
-                    src={image?.url}
-                    width={800}
-                    height={1200}
-                    key={index}
-                    className={`${index === 0 ?'order-1 md:order-0 w-full'? index === 1:'order-2 md:order-1 w-1/2' : 'order-3 md:order-2  w-1/2'} w`}
-                  />
-                );
-              })}
+              {product?.productImage &&
+                product.productImage.map((image, index) => {
+                  return (
+                    <Image
+                      alt={image?.altText}
+                      src={image?.url}
+                      width={800}
+                      height={1200}
+                      key={index}
+                      className={`${
+                        index === 0
+                          ? "order-1 md:order-0 w-full"
+                            ? index === 1
+                            : "order-2 md:order-1 w-1/2"
+                          : "order-3 md:order-2  w-1/2"
+                      } w`}
+                    />
+                  );
+                })}
             </div>
-
           </div>
 
           <div className="pl-2 space-y-4 lg:max-w-2xl">
@@ -133,14 +143,7 @@ export default async function Page({ params }) {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <button
-              type="submit"
-              className="flex items-center justify-center w-[350px] px-8 py-3 my-10 
-              text-base font-medium text-white bg-paws-darkblue border border-transparent rounded-md 
-              hover:bg-paws-darkblue/80 md:py-4 md:px-10 md:text-lg cursor-pointer transition-all focus:ring-offset-2"
-            >
-              Add to cart
-            </button>
+            <AddtoCart product={product} />
           </div>
         </div>
         <div className="">

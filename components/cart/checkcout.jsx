@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { usePaystackPayment } from 'react-paystack';
+import { usePaystackPayment } from "react-paystack";
 
 ///file import
 import {
@@ -17,11 +17,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { CurrencyFormatter } from "@/utils/currencyFormatter";
 
-const PAYSTACK_PUBLIC_KEY =process.env.NEXT_PAYSTACK_PUBLIC_KEY
-export function Chcekout({amount,email}) {
+const PAYSTACK_PUBLIC_KEY = "pk_test_072782400dbbad3e569fa6b72151129ef2cf348e";
+export function Chcekout({ amount, email }) {
   const [open, setOpen] = useState(false);
-
   return (
     <Dialog open={open} onOpenChange={setOpen} className="py-8">
       <DialogTrigger asChild>
@@ -37,7 +37,7 @@ export function Chcekout({amount,email}) {
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
-          <CheckoutForm />
+          <CheckoutForm {...{ amount, useremail: email, setOpen }} />
         </div>
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
@@ -51,7 +51,7 @@ export function Chcekout({amount,email}) {
   );
 }
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ amount, useremail, setOpen }) {
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
     email: "",
@@ -64,18 +64,40 @@ export default function CheckoutForm() {
     setCustomerInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
   };
 
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: useremail,
+    amount: amount.total * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    // publicKey: "pk_test_072782400dbbad3e569fa6b72151129ef2cf348e",
+    publicKey: PAYSTACK_PUBLIC_KEY,
+    metadata: {
+      name: customerInfo?.name,
+      email: customerInfo?.email,
+      address: customerInfo?.address,
+      instructions: customerInfo?.instructions,
+    },
+  };
+  const onSuccess = (reference) => {
+    console.log("here1");
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference);
+    console.log("here2");
+  };
+
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+  const initializePayment = usePaystackPayment(config);
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(customerInfo);
+    // setOpen(false)
+    // console.log(config)
     // onSubmit(customerInfo); // Pass customer info to parent function
     // You can add additional logic here like form validation or reset
   };
-  const config = {
-    reference: (new Date()).getTime().toString(),
-    email: "user@example.com",
-    amount: 20000, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey:PAYSTACK_PUBLIC_KEY,
-};
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div>
@@ -86,7 +108,13 @@ export default function CheckoutForm() {
           <div className="grid gap-8 p-6">
             <div className="grid gap-6">
               <h2 className="text-xl font-semibold">Customer Information</h2>
-              <form className="grid gap-6" onSubmit={handleSubmit}>
+              <form
+                className="grid gap-6"
+                onSubmit={(e) => {
+                  handleSubmit(e);
+                  initializePayment(onSuccess, onClose);
+                }}
+              >
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label className="text-base" htmlFor="name">
@@ -159,19 +187,27 @@ export default function CheckoutForm() {
               <div className="grid gap-4">
                 <div className="flex items-center justify-between">
                   <span className="text-base font-medium">Subtotal</span>
-                  <span className="text-base font-medium">$99.99</span>
+                  <span className="text-base font-medium">
+                    {CurrencyFormatter(amount.subtotal)}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-base font-medium">Shipping</span>
-                  <span className="text-base font-medium">$5.99</span>
+                  <span className="text-base font-medium">
+                    {CurrencyFormatter(0)}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-base font-medium">Tax</span>
-                  <span className="text-base font-medium">$8.00</span>
+                  <span className="text-base font-medium">
+                    {CurrencyFormatter(amount.tax)}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between border-t border-[#e4b1f6] pt-4 dark:border-gray-700">
                   <span className="text-lg font-bold">Total</span>
-                  <span className="text-lg font-bold">$113.98</span>
+                  <span className="text-lg font-bold">
+                    {CurrencyFormatter(amount.total)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -179,24 +215,5 @@ export default function CheckoutForm() {
         </div>
       </div>
     </div>
-  );
-}
-
-function CheckIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
   );
 }

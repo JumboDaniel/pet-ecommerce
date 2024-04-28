@@ -11,6 +11,7 @@ import { CurrencyFormatter } from "@/utils/currencyFormatter";
 import { EmptyCart } from "@/components/emptystate/emptycart";
 import { RemoveFromCart } from "@/components/cart/removefromCart";
 import { Chcekout } from "@/components/cart/checkcout";
+import { redirect } from "next/navigation";
 
 type Product = {
   id: string;
@@ -28,9 +29,7 @@ type Item = {
 export default async function CartPage() {
   const supabase = createClient();
   const { data: userdata, error } = await supabase.auth.getUser();
-  //   if (error || !data?.user) {
-  //     redirect('/login')
-  //   }
+
   const { data: cart, error: carterror } = await supabase
     .from("cart")
     .select("*")
@@ -46,6 +45,28 @@ export default async function CartPage() {
     return cartItems;
   }
   const totalCartItems = await getCartItemsWithDetails();
+  const totalAmount = totalCartItems?.reduce(
+    (accumulator, currentItem) => {
+      const subtotal = accumulator.subtotal + currentItem.productPrice;
+      const taxRate = 0.08; // Assuming 8% tax rate, adjust as needed
+      const tax = Math.round(subtotal * taxRate);
+      const total = subtotal + tax;
+      return {
+        ...accumulator,
+        subtotal,
+        tax,
+        total,
+      };
+    },
+    {
+      subtotal: 0,
+      tax: 0,
+      total: 0,
+    }
+  );
+  if (error || !dauserdatata?.user) {
+    redirect("/login");
+  }
   if (!cart || cart.length <= 0) {
     return (
       <div className="min-h-[500px] py-24">
@@ -60,7 +81,9 @@ export default async function CartPage() {
         <div className="max-w-4xl mx-auto px-6 grid gap-6 lg:gap-12">
           <div className="grid gap-2">
             <h1 className="font-semibold text-3xl">Shopping Cart</h1>
-            <p className="text-gray-500">You have 3 items in your cart</p>
+            <p className="text-gray-500">
+              You have {totalCartItems.length} items in your cart
+            </p>
           </div>
           <div className="grid gap-6">
             {totalCartItems?.map((item, index) => {
@@ -118,18 +141,24 @@ export default async function CartPage() {
               <form className="space-y-4">
                 <div className="grid grid-cols-2 items-center gap-2">
                   <div>Subtotal</div>
-                  <div className="text-right">$44.97</div>
+                  <div className="text-right">
+                    {CurrencyFormatter(totalAmount.subtotal)}
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 items-center gap-2">
                   <div>Tax</div>
-                  <div className="text-right">$4.50</div>
+                  <div className="text-right">
+                    {CurrencyFormatter(totalAmount.tax)}
+                  </div>
                 </div>
                 <Separator className="h-px border-gray-200 dark:border-gray-800" />
                 <div className="grid grid-cols-2 items-center font-semibold gap-2">
                   <div>Total</div>
-                  <div className="text-right">$49.47</div>
+                  <div className="text-right">
+                    {CurrencyFormatter(totalAmount.total)}
+                  </div>
                 </div>
-                <Chcekout/>
+                <Chcekout email={userdata.user?.email} amount={totalAmount} />
               </form>
               <div className="flex items-center justify-center">
                 <Link

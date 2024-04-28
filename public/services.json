@@ -1,0 +1,192 @@
+[
+  {
+    "service_id": 1,
+    "name": "Paws & Claws Veterinary Clinic",
+    "service": "Veterinary Services",
+    "location": "456 Oak Street, Anytown",
+    "description": "Comprehensive veterinary care for dogs, cats, and other small animals, including vaccinations, surgeries, and wellness exams.",
+    "images": [
+      "https://example.com/images/vet1.jpg",
+      "https://example.com/images/vet2.jpg",
+      "https://example.com/images/vet3.jpg"
+    ],
+    "about": "At Paws & Claws Veterinary Clinic, we prioritize the health and well-being of your furry companions. Our team of skilled veterinarians and staff provide compassionate care in a welcoming environment.",
+    "price": 75,
+    "faqs": [
+      {
+        "question": "What vaccinations does my pet need?",
+        "answer": "The vaccinations your pet needs will depend on factors such as their age, lifestyle, and health status. Our veterinarians can recommend a vaccination schedule tailored to your pet's individual needs."
+      },
+      {
+        "question": "Do you offer emergency services?",
+        "answer": "Yes, we provide emergency veterinary care during regular business hours. For after-hours emergencies, we recommend contacting the nearest emergency veterinary clinic."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Emily M.",
+        "rating": 5,
+        "comment": "I highly recommend Paws & Claws Veterinary Clinic! The staff are friendly, knowledgeable, and truly care about the well-being of your pets."
+      },
+      {
+        "name": "Michael R.",
+        "rating": 4,
+        "comment": "Great veterinary clinic overall, but sometimes the wait times can be a bit long."
+      }
+    ],
+    "rating": 4.5,
+    "totalReviews": 90
+  },
+  {
+    "service_id": 2,
+    "name": "Happy Tails Dog Walking",
+    "service": "Dog Walking",
+    "location": "789 Maple Avenue, Townsville",
+    "description": "Professional dog walking services to keep your furry friend happy, healthy, and active.",
+    "images": [
+      "https://example.com/images/walking1.jpg",
+      "https://example.com/images/walking2.jpg",
+      "https://example.com/images/walking3.jpg"
+    ],
+    "about": "At Happy Tails Dog Walking, we understand the importance of regular exercise for dogs. Our experienced dog walkers provide personalized walks tailored to your dog's energy level and individual needs.",
+    "price": 25,
+    "faqs": [
+      {
+        "question": "How long are the dog walks?",
+        "answer": "Dog walks typically range from 30 minutes to 1 hour, depending on your dog's needs and your preferences."
+      },
+      {
+        "question": "Do you walk multiple dogs at once?",
+        "answer": "We may walk multiple dogs from the same household together, but we prioritize safety and ensure that each dog receives individual attention and care."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "David H.",
+        "rating": 5,
+        "comment": "Happy Tails Dog Walking is fantastic! They always provide great service, and my dog loves going on walks with them."
+      },
+      {
+        "name": "Jessica K.",
+        "rating": 4,
+        "comment": "Reliable dog walking service, but it would be nice to have more flexibility with scheduling."
+      }
+    ],
+    "rating": 4.7,
+    "totalReviews": 75
+  },
+  {
+    "service_id": 3,
+    "name": "Purrfect Paws Cat Boarding",
+    "service": "Cat Boarding",
+    "location": "101 Pine Street, Kittyville",
+    "description": "Safe and comfortable boarding accommodations for cats, with spacious suites, play areas, and personalized care.",
+    "images": [
+      "https://example.com/images/catboarding1.jpg",
+      "https://example.com/images/catboarding2.jpg",
+      "https://example.com/images/catboarding3.jpg"
+    ],
+    "about": "At Purrfect Paws Cat Boarding, we provide a stress-free environment for your feline friends while you're away. Our dedicated staff ensure that each cat receives individual attention and plenty of playtime.",
+    "price": 35,
+    "faqs": [
+      {
+        "question": "What amenities do the boarding suites have?",
+        "answer": "Our boarding suites feature cozy bedding, scratching posts, toys, and access to play areas. We also offer optional grooming services for an additional fee."
+      },
+      {
+        "question": "Can I bring my cat's own food and belongings?",
+        "answer": "Yes, you're welcome to bring your cat's favorite food, toys, and bedding to make their stay more comfortable. Please label all belongings with your cat's name."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Alice W.",
+        "rating": 5,
+        "comment": "I'm so grateful for Purrfect Paws Cat Boarding! They took excellent care of my cat while I was away, and I appreciated the photo updates."
+      },
+      {
+        "name": "Robert C.",
+        "rating": 4,
+        "comment": "Great cat boarding facility overall, but it would be helpful to have longer visiting hours for drop-off and pick-up."
+      }
+    ],
+    "rating": 4.6,
+    "totalReviews": 60
+  },
+  {
+    "service_id": 4,
+    "name": "Feathered Friends Avian Clinic",
+    "service": "Avian Veterinary Services",
+    "location": "202 Elm Avenue, Birdtown",
+    "description": "Specialized veterinary care for birds, including wellness exams, diagnostic testing, and surgical procedures.",
+    "images": [
+      "https://example.com/images/avianclinic1.jpg",
+      "https://example.com/images/avianclinic2.jpg",
+      "https://example.com/images/avianclinic3.jpg"
+    ],
+    "about": "At Feathered Friends Avian Clinic, we're dedicated to providing the highest quality veterinary care for birds of all species. Our experienced avian veterinarians are passionate about bird health and well-being.",
+    "price": 90,
+    "faqs": [
+      {
+        "question": "What types of birds do you treat?",
+        "answer": "We treat all types of pet birds, including parrots, cockatiels, finches, and more. Our veterinarians have experience with a wide range of avian species."
+      },
+      {
+        "question": "Do you offer grooming services for birds?",
+        "answer": "Yes, we provide grooming services such as nail trimming, wing clipping, and beak shaping for birds. Our veterinarians can also offer advice on proper bird care and husbandry."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Eleanor P.",
+        "rating": 5,
+        "comment": "Feathered Friends Avian Clinic is fantastic! They saved my bird's life after a serious illness, and I'm forever grateful."
+      },
+      {
+        "name": "Samuel L.",
+        "rating": 4,
+        "comment": "Great avian clinic with knowledgeable staff, but appointments can sometimes run behind schedule."
+      }
+    ],
+    "rating": 4.9,
+    "totalReviews": 80
+  },
+  {
+    "service_id": 5,
+    "name": "Happy Hounds Doggy Daycare",
+    "service": "Doggy Daycare",
+    "location": "303 Cedar Street, Puptown",
+    "description": "Safe and supervised daycare services for dogs, with indoor and outdoor play areas, enrichment activities, and socialization opportunities.",
+    "images": [
+      "https://example.com/images/doggydaycare1.jpg",
+      "https://example.com/images/doggydaycare2.jpg",
+      "https://example.com/images/doggydaycare3.jpg"
+    ],
+    "about": "At Happy Hounds Doggy Daycare, we provide a fun and stimulating environment for dogs to play and socialize while their owners are at work or away. Our trained staff ensure that each dog receives personalized attention and care.",
+    "price": 40,
+    "faqs": [
+      {
+        "question": "What activities do you offer for the dogs?",
+        "answer": "Our daycare program includes supervised playtime, interactive games, walks, and rest periods. We also offer enrichment activities such as puzzle toys and agility courses."
+      },
+      {
+        "question": "Do you separate dogs by size or temperament?",
+        "answer": "Yes, we group dogs based on size, temperament, and play style to ensure a safe and enjoyable experience for all dogs. Our staff closely monitor play sessions and intervene if necessary."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Olivia S.",
+        "rating": 5,
+        "comment": "Happy Hounds Doggy Daycare is fantastic! My dog loves going there, and I appreciate the caring staff and clean facilities."
+      },
+      {
+        "name": "Daniel K.",
+        "rating": 4,
+        "comment": "Great daycare facility overall, but it would be nice to have extended hours for drop-off and pick-up."
+      }
+    ],
+    "rating": 4.7,
+    "totalReviews": 100
+  }
+]

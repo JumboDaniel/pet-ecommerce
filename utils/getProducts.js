@@ -126,3 +126,24 @@ export async function getProductBySlug(slug, preview = false) {
     console.log(error);
   }
 }
+export async function getProductById(id) {
+  const query = gql`
+    query MyQuery($id: ID!) {
+      product(where: { id: $id }) {
+        productName
+        productPrice
+        productSlug
+        id
+        productImage {
+          url
+        }
+      }
+    }
+  `;
+  try {
+    const { product } = await hygraphClient.request(query,{id});
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
+}

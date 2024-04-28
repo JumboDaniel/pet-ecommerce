@@ -18,7 +18,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { createClient } from "@/utils/supabase/server";
-import { AddtoCart } from "@/components/addtocart";
+import { AddtoCart } from "@/components/cart/addtocart";
 export default async function Page({ params }) {
   // const { toast } = useToast();
 

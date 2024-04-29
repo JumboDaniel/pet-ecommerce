@@ -64,7 +64,7 @@ export default async function CartPage() {
       total: 0,
     }
   );
-  if (error || !dauserdatata?.user) {
+  if (error || !userdata?.user) {
     redirect("/login");
   }
   if (!cart || cart.length <= 0) {
@@ -117,7 +117,12 @@ export default async function CartPage() {
                         <Label className="sr-only" htmlFor="quantity">
                           Quantity
                         </Label>
-                        <Select className="w-20" id="quantity">
+
+                        <Select
+                          //@ts-expect-error
+                          className="w-20"
+                          id="quantity"
+                        >
                           <option>1</option>
                           <option>2</option>
                           <option>3</option>

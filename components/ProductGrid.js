@@ -2,7 +2,7 @@ import Image from "next/image";
 import Main from "./Main";
 import { Plus, Star } from "lucide-react";
 
-const Product = function ({ product }) {
+export const Product = function ({ product }) {
   const thumbnail =
     product.productImage[0] || product.localizations[0]?.productImage[0];
 

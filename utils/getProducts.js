@@ -76,7 +76,56 @@ export async function allProducts() {
     console.log(error);
   }
 }
+export async function allProductsWithFilter(search, minPrice, maxPrice, category) {
+  const query = gql`
+    query GetAllProducts($search: String, $minPrice: Float!, $maxPrice: Float!, $category: String) {
+      products(
+        where: {
+          AND: [
+            { productName_contains: $search }
+            { productPrice_gte: $minPrice, productPrice_lte: $maxPrice }
+            { productCategories_some: { categoryName_contains: $category } }
+          ]
+        }
+      ) {
+        productName
+        id
+        productSlug
+        productImage {
+          url
+          height
+          width
+          altText
+        }
+        productPrice
+        productCategories {
+          categoryName
+        }
+        reviews {
+          data {
+            id
+            name
+            rating
+            comment
+          }
+        }
+      }
+    }
+  `;
 
+  try {
+    const variables = {
+      search,
+      minPrice: minPrice !== undefined ? minPrice :0,
+      maxPrice: maxPrice !== undefined ? maxPrice : 1000000,
+      category,
+    };
+    const {products} = await hygraphClient.request(query, variables);
+    return products;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getProductBySlug(slug, preview = false) {
   const query = gql`
     query GetSingleProduct($slug: String!, $stage: Stage!) {
@@ -147,3 +196,4 @@ export async function getProductById(id) {
     console.log(error);
   }
 }
+ 

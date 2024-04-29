@@ -7,9 +7,7 @@ import { removeFromCart } from "@/app/cart/action";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { LoadingOverlay } from "@/components/loading";
-const initialState = {
-  message: "",
-};
+
 export const RemoveFromCart = ({ uid, product_id }) => {
   const { toast } = useToast();
 

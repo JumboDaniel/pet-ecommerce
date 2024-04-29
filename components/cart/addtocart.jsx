@@ -1,13 +1,16 @@
 "use client";
-import React from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { createClient } from "@/utils/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { addToCart } from "@/utils/cartService";
+import { LoadingOverlay } from "@/components/loading";
+
 export const AddtoCart = ({ product }) => {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const supabase = createClient();
   const handleAddToCart = async (productId) => {
@@ -24,7 +27,9 @@ export const AddtoCart = ({ product }) => {
         ),
       });
     } else {
+      setIsLoading((prev) => !prev);
       const cartAddition = await addToCart(data.user?.id, productId, 1);
+      setIsLoading((prev) => !prev);
       toast({
         title: "Success",
         description: "Added item to cart",
@@ -33,6 +38,7 @@ export const AddtoCart = ({ product }) => {
   };
   return (
     <div>
+      <LoadingOverlay isLoading={isLoading} />
       <button
         type="submit"
         onClick={() => handleAddToCart(product?.id)}

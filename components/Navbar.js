@@ -10,15 +10,34 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-export default async function Navbar() {
-  const nav = await getNavigationById("main");
+import { createClient } from "@/utils/supabase/server";
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { PawPrintIcon } from "./Footer";
 
+export default async function Navbar() {
+  const supabase = createClient();
+  const nav = await getNavigationById("main");
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("uid", (await supabase.auth.getUser()).data.user.id);
+  const userprofile = data[0];
+  // Function to get the first character of a string, handling edge cases
+  function getFirstCharacter(name) {
+    if (!name || typeof name !== "string") {
+      return ""; // Return empty string for invalid input
+    }
+    return name.charAt(0).toUpperCase(); // Extract and uppercase the first character
+  }
+  const initial = ` ${getFirstCharacter(
+    userprofile.first_name
+  )} ${getFirstCharacter(userprofile.last_name)}`;
   return (
     <div className="flex items-center justify-between px-16 py-6 md:justify-start md:space-x-10">
       <div className="flex justify-start lg:w-0 lg:flex-1">
-        <a href="/">
-          <span className="sr-only">Hygraph Commerce</span>
-          <img className="h-8 w-auto sm:h-10" src="/logo.svg" alt="" />
+        <a href="/" className="flex items-center space-x-2 mb-4">
+          <PawPrintIcon className="h-8 w-8 text-paws-darkblue" />
+          <span className="text-2xl font-bold text-paws-darkblue">Paw Prints</span>
         </a>
       </div>
       <div className="-my-2 -mr-2 md:hidden">
@@ -41,12 +60,16 @@ export default async function Navbar() {
         <a href="/cart" className="text-base  font-medium">
           <ShoppingCart />
         </a>
-        <DropdownMenu>
+        <DropdownMenu className="w-[500px]">
           <DropdownMenuTrigger>
-            <User />
+            <Avatar className="w-10 h-10 border">
+              <AvatarImage alt="@username" src="/placeholder-user.jpg" />
+              <AvatarFallback>{initial}</AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>{userprofile.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>

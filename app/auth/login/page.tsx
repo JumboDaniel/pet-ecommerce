@@ -41,7 +41,8 @@ export default function LoginForm() {
     if (response.error) {
       toast({
         title: "Error",
-        description: response.errorMessage,
+        //@ts-expect-error
+        description: response.errorMessage || "",
         variant: "destructive",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
@@ -94,6 +95,7 @@ export default function LoginForm() {
             <Button
               type="submit"
               className="w-full bg-paws-darkblue"
+              //@ts-expect-error
               formAction={handleSubmit}
               isLoading={isLoading}
               disabled={isLoading}

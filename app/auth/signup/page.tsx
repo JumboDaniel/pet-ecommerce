@@ -42,7 +42,8 @@ export default function Signup() {
     const response = await signup(formdata);
     if (response.error) {
       toast({
-        title: "Error",
+        title: "Error",        
+        //@ts-expect-error
         description: response.errorMessage,
         variant: "destructive",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -120,6 +121,7 @@ export default function Signup() {
             <Button
               type="submit"
               className="w-full bg-paws-darkblue"
+              //@ts-expect-error
               formAction={handleSubmit}
               isLoading={isLoading}
               disabled={isLoading}

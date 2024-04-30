@@ -13,8 +13,7 @@ export const metadata = {
 
 export default async function Page({ params }) {
   const {stripes, landingPageTitle } = await getPageBySlug("/");
-  const products = await getSomeProducts(4);
-  // console.log("products: ", products);
+
   return (
     <div className="h-full">
       <header className="bg-[url(/images/dog.jpg)] bg-cover bg-center md:h-[90vh] text-white">
@@ -31,15 +30,6 @@ export default async function Page({ params }) {
                 />
               );
             }
-            // if (stripe.__typename === "ProductGrid") {
-            //   return (
-            //     <ProductGrid
-            //       key={stripe.id}
-            //       title={stripe.headline}
-            //       products={stripe.products}
-            //     />
-            //   );
-            // }
           })}
       </header>
       <div className="bg-paws-pink lg:py-24 py-12 px-16 md:px-44">

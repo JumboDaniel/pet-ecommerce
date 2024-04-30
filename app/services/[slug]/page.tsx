@@ -105,10 +105,6 @@ function BookingComponent({ serviceObject }:{serviceObject:Service}) {
                   return (
                     <div className="flex items-start gap-4" key={index}>
                       <Avatar className="w-10 h-10 border">
-                        <AvatarImage
-                          alt="@username"
-                          src="/placeholder-user.jpg"
-                        />
                         <AvatarFallback>{initials}</AvatarFallback>
                       </Avatar>
                       <div className="flex-1">

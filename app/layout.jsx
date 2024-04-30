@@ -1,5 +1,5 @@
-import Base from "../components/layouts/Base";
-import "../styles/globals.css";
+import Base from "@/components/layouts/Base";
+import "@/styles/globals.css";
 import { Toaster } from "@/components/ui/toaster"
 
 export default function Layout({ children }) {

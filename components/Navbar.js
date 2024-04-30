@@ -16,22 +16,33 @@ import { PawPrintIcon } from "./Footer";
 
 export default async function Navbar() {
   const supabase = createClient();
+  const { data: userdata, error: userdataerror } =
+    await supabase.auth.getUser();
+
   const nav = await getNavigationById("main");
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("uid", (await supabase.auth.getUser()).data.user.id);
-  const userprofile = data[0];
-  // Function to get the first character of a string, handling edge cases
+  let profiledata; // Declare data outside the if statement
+  let initial;
   function getFirstCharacter(name) {
     if (!name || typeof name !== "string") {
       return ""; // Return empty string for invalid input
     }
     return name.charAt(0).toUpperCase(); // Extract and uppercase the first character
   }
-  const initial = ` ${getFirstCharacter(
-    userprofile.first_name
-  )} ${getFirstCharacter(userprofile.last_name)}`;
+  if (userdata) {
+    const nav = await getNavigationById("main");
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("uid", userdata?.user?.id);
+    profiledata = data?.[0]; // Assign data to the previously declared variable
+    initial = ` ${getFirstCharacter(data?.first_name)} ${getFirstCharacter(
+      data?.last_name
+    )}`;
+  } else {
+    // Handle the case when userdata is not available
+    console.error("User data not available:", userdataerror);
+  }
+  // console.log(userdata?.user,'user',userdata?.user?.id)
   return (
     <div className="flex items-center justify-between px-16 py-6 md:justify-start md:space-x-10">
       <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -53,7 +64,7 @@ export default async function Navbar() {
         {nav.navLink.map((link) => (
           <a
             key={link.id}
-            href={link.url ? link.url : "/en/" + link.page.url}
+            href={link.url ? link.url : "#"}
             className="text-base font-medium"
           >
             {link.displayText}
@@ -62,25 +73,31 @@ export default async function Navbar() {
         <a href="/cart" className="text-base  font-medium">
           <ShoppingCart />
         </a>
-        <DropdownMenu className="w-[500px]">
-          <DropdownMenuTrigger>
-            <Avatar className="w-10 h-10 border">
-              <AvatarImage alt="@username" src="/placeholder-user.jpg" />
-              <AvatarFallback>{initial}</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuLabel>{userprofile.email}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <a href={`/profile`} className="cursor-pointer">Profile</a>
-            </DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {userdata ? (
+          <DropdownMenu className="w-[500px]">
+            <DropdownMenuTrigger>
+              <Avatar className="w-10 h-10 border">
+                <AvatarImage alt="@username" src="/placeholder-user.jpg" />
+                <AvatarFallback>{initial}</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{profiledata?.email}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <a href={`/profile`} className="cursor-pointer">
+                  Profile
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          ""
+        )}
       </div>
       <div className="md:hidden">
         <MobileNav nav={nav} />

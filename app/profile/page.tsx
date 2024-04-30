@@ -48,7 +48,7 @@ export default async function ProfilePage() {
           <Card className="border-0 shadow-none">
             <CardContent className="flex flex-col items-center gap-2 text-center">
               <Avatar className="w-16 h-16 border">
-                <AvatarFallback>{initials}</AvatarFallback>
+                <AvatarFallback>{initial}</AvatarFallback>
               </Avatar>
               <div className="font-bold">
                 {userprofile?.first_name} {userprofile?.last_name}

@@ -51,16 +51,7 @@ export default async function ServicesPage({ params, searchParams }: {
     </div>
   );
 }
-// {Object.keys(service).some((key) => key.startsWith("images/")) && (
-//     <div>
-//       {Object.keys(service)
-//         .filter((key) => key.startsWith("images/"))
-//         .map((imageUrlKey) => {
-//             console.log('helloooooooooooo',imageUrlKey[0])
-//           return <img src={service[imageUrlKey]} alt={service.name} />;
-//         })}
-//     </div>
-//   )}
+
 //@ts-expect-error
 function ServiceCard({ service }) {
   const rating = Math.floor(service.rating);

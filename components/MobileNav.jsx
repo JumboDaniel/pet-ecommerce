@@ -44,7 +44,7 @@ export default function MobileNav(props) {
           </button>
           <ul className="mt-10">
             <li className="my-5"><a href="/">Home</a></li>
-            {/* {props.nav.navLink.map((link) => (
+            {props.nav.navLink.map((link) => (
               <li key={link.id} className="my-5">
                 <a
                   href={link.url ? link.url : "/en/" + link.page.url}
@@ -53,7 +53,7 @@ export default function MobileNav(props) {
                   {link.displayText}
                 </a>
               </li>
-            ))} */}
+            ))}
           </ul>
         </nav>
       </div>

@@ -5,15 +5,15 @@ import { RichText } from "@graphcms/rich-text-react-renderer";
 
 export default function Hero({title }) {
   return (
-    <div className="h-[80%] ml-8 flex items-end px-16 py-16 max-w-3xl">
+    <div className="h-[80%] md:ml-8 flex items-end px-16 py-16 max-w-3xl">
     <div className="sm:text-center lg:text-left">
       <h1 className="text-4xl font-medium tracking-tight text-white sm:text-5xl md:text-7xl">
         <span className="block xl:inline">{title}.</span>
       </h1>
       <button className="mt-12 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
         <a
-          href={`#`}
-          className="flex items-center justify-center w-[350px] px-8 py-3 h-12 
+          href={`/shop`}
+          className="flex items-center justify-center w-[250px] md:w-[350px] px-8 py-3 h-12 
           text-base font-medium text-paws-darkblue bg-paws-gold border border-transparent 
           rounded-full hover:bg-paws-gold/80 md:py-4 md:px-10 md:text-lg cursor-pointer transition-all"
         >
@@ -43,7 +43,7 @@ export function FullHero(props) {
                 <div className="rounded-md shadow">
                   <a
                     href={props.button.url}
-                    className="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
+                    className="flex items-center justify-center w-[200px] md:w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
                   >
                     {props.button.text}
                   </a>

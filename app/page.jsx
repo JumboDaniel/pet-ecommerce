@@ -42,10 +42,10 @@ export default async function Page({ params }) {
             // }
           })}
       </header>
-      <div className="bg-paws-pink lg:py-24 px-44">
-        <div className="flex justify-between">
+      <div className="bg-paws-pink lg:py-24 py-12 px-16 md:px-44">
+        <div className="flex flex-col md:flex-row justify-between">
           <div className="text-paws-darkblue space-y-4">
-            <h3 className="text-6xl font-medium max-w-3xl">
+            <h3 className="text-5xl md:text-6xl font-medium md:max-w-3xl">
               Check out our popular categories
             </h3>
             <div className="space-y-2">
@@ -53,7 +53,7 @@ export default async function Page({ params }) {
               <p>Cats and dogs are also popular categories</p>
             </div>
           </div>
-          <div className="flex lg:gap-x-24">
+          <div className="flex gap-x-8 lg:gap-x-24">
             <div className="space-y-4">
               <div className="bg-paws-darkblue h-[160px] w-[160px] rounded-full">
                 <Image

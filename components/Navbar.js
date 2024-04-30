@@ -37,7 +37,9 @@ export default async function Navbar() {
       <div className="flex justify-start lg:w-0 lg:flex-1">
         <a href="/" className="flex items-center space-x-2 mb-4">
           <PawPrintIcon className="h-8 w-8 text-paws-darkblue" />
-          <span className="text-2xl font-bold text-paws-darkblue">Paw Prints</span>
+          <span className="text-2xl font-bold text-paws-darkblue">
+            Paw Prints
+          </span>
         </a>
       </div>
       <div className="-my-2 -mr-2 md:hidden">
@@ -71,7 +73,9 @@ export default async function Navbar() {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuLabel>{userprofile.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>
+              <a href={`/profile`} className="cursor-pointer">Profile</a>
+            </DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
             <DropdownMenuItem>Subscription</DropdownMenuItem>
